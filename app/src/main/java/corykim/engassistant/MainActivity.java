@@ -13,11 +13,16 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.microsoft.cognitiveservices.speech.ResultReason;
 import com.microsoft.cognitiveservices.speech.SpeechConfig;
 import com.microsoft.cognitiveservices.speech.SpeechRecognitionResult;
 import com.microsoft.cognitiveservices.speech.SpeechRecognizer;
 import com.microsoft.cognitiveservices.speech.audio.AudioConfig;
+import com.microsoft.cognitiveservices.speech.translation.SpeechTranslationConfig;
+import com.microsoft.cognitiveservices.speech.translation.TranslationRecognitionResult;
+import com.microsoft.cognitiveservices.speech.translation.TranslationRecognizer;
 
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -27,14 +32,16 @@ public class MainActivity extends AppCompatActivity {
     String key = "5deb918661344d0d9c684eeca23bf724";
     String location = "centralus";
     ActivityMainBinding binding;
-    int x = 0;
-    SpeechConfig speechConfig = SpeechConfig.fromSubscription(key, location);
+    SpeechTranslationConfig speechConfig = SpeechTranslationConfig.fromSubscription(key, location);
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        speechConfig.setSpeechRecognitionLanguage("en-US");
+        speechConfig.addTargetLanguage("ko");
 
         // Initialize SpeechSDK and request required permissions.
         try {
@@ -48,30 +55,28 @@ public class MainActivity extends AppCompatActivity {
             Log.e("SpeechSDK", "could not init sdk, " + ex.toString());
         }
 
-        binding.corykim.setText("I am Cory hahaha");
-
         binding.button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                x = x + 1;
-                Toast.makeText(getApplicationContext(),"Button click count = " + x,Toast.LENGTH_SHORT).show();
-                binding.minlee.setText("Button click count = " + x);
+                Toast.makeText(getApplicationContext(),"Speak now" ,Toast.LENGTH_SHORT).show();
                 try {
                     fromMic(speechConfig);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
     }
 
-    public static void fromMic(SpeechConfig speechConfig) throws InterruptedException, ExecutionException {
-        AudioConfig audioConfig = AudioConfig.fromDefaultMicrophoneInput();
-        SpeechRecognizer recognizer = new SpeechRecognizer(speechConfig, audioConfig);
-        Future<SpeechRecognitionResult> task = recognizer.recognizeOnceAsync();
-        SpeechRecognitionResult result = task.get();
-        Log.e("fromMic", "RECOGNIZED: Text=" + result.getText());
+    public void fromMic(SpeechTranslationConfig speechConfig) throws Exception {
+        try (TranslationRecognizer recognizer = new TranslationRecognizer(speechConfig)) {
+            TranslationRecognitionResult result = recognizer.recognizeOnceAsync().get();
+            if (result.getReason() == ResultReason.TranslatedSpeech) {
+                binding.corykim.setText(result.getText());
+                for (Map.Entry<String, String> pair : result.getTranslations().entrySet()) {
+                    Log.e("fromMic","Translated into : " + pair.getValue());
+                }
+            }
+        }
     }
 }
