@@ -4,6 +4,7 @@ import static android.Manifest.permission.INTERNET;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.RECORD_AUDIO;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Home");
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         speechConfig.setSpeechRecognitionLanguage("en-US");
@@ -66,7 +68,18 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        binding.history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, HistoryActivity.class));
+
+            }
+        });
     }
+
+
+
 
     public void fromMic(SpeechTranslationConfig speechConfig) throws Exception {
         try (TranslationRecognizer recognizer = new TranslationRecognizer(speechConfig)) {
@@ -74,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             if (result.getReason() == ResultReason.TranslatedSpeech) {
                 binding.corykim.setText(result.getText());
                 for (Map.Entry<String, String> pair : result.getTranslations().entrySet()) {
-                    Log.e("fromMic","Translated into : " + pair.getValue());
+                    binding.translate.setText(pair.getValue());
                 }
             }
         }
