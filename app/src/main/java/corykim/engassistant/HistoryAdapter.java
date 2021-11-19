@@ -26,7 +26,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         holder.englishText.setText(data.get(position).englishText);
         holder.koreanText.setText(data.get(position).koreanText);
         holder.time.setText(data.get(position).time);
-        holder.elapsed.setText(data.get(position).elapsed);
     }
 
     @Override

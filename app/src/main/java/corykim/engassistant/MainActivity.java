@@ -87,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
                 binding.save.setEnabled(false);
                 Toast.makeText(getApplicationContext(),"Sentence saved." ,Toast.LENGTH_SHORT).show();
                 viewModel.insert(new SpeechHistory(binding.corykim.getText().toString(), binding.translate.getText().toString(), "21"));
+                binding.corykim.setText("Press the button to translate.");
+                binding.translate.setText("(Translation appears here.)");
             }
         });
     }

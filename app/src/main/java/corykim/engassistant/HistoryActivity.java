@@ -33,15 +33,15 @@ public class HistoryActivity extends AppCompatActivity {
             adapter.update(speechHistories);
         });
 
-        List<SpeechHistory> temporaryData = new ArrayList<>();
-        temporaryData.add(new SpeechHistory("Hi, my name is Cory", "번역 1 ", "11/11/2021"));
-        temporaryData.add(new SpeechHistory("Hi, my name is Cory", "번역 2 ", "11/11/2021"));
-        temporaryData.add(new SpeechHistory("Hi, my name is Cory", "번역 3 ", "11/11/2021"));
-        temporaryData.add(new SpeechHistory("Hi, my name is Cory", "번역 4 ", "11/11/2021"));
-        temporaryData.add(new SpeechHistory("Hi, my name is Cory", "번역 5 ", "11/11/2021"));
-        temporaryData.add(new SpeechHistory("Hi, my name is Cory", "번역 6 ", "11/11/2021"));
-        temporaryData.add(new SpeechHistory("Hi, my name is Cory", "번역 7 ", "11/11/2021"));
-        adapter.update(temporaryData);
+//        List<SpeechHistory> temporaryData = new ArrayList<>();
+//        temporaryData.add(new SpeechHistory("Hi, my name is Cory", "번역 1 ", "11/11/2021"));
+//        temporaryData.add(new SpeechHistory("Hi, my name is Cory", "번역 2 ", "11/11/2021"));
+//        temporaryData.add(new SpeechHistory("Hi, my name is Cory", "번역 3 ", "11/11/2021"));
+//        temporaryData.add(new SpeechHistory("Hi, my name is Cory", "번역 4 ", "11/11/2021"));
+//        temporaryData.add(new SpeechHistory("Hi, my name is Cory", "번역 5 ", "11/11/2021"));
+//        temporaryData.add(new SpeechHistory("Hi, my name is Cory", "번역 6 ", "11/11/2021"));
+//        temporaryData.add(new SpeechHistory("Hi, my name is Cory", "번역 7 ", "11/11/2021"));
+//        adapter.update(temporaryData);
     }
 }
 

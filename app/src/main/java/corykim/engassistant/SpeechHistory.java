@@ -24,4 +24,8 @@ public class SpeechHistory {
         this.koreanText = korean;
         this.time = time;
     }
+
+    public SpeechHistory() {
+
+    }
 }
