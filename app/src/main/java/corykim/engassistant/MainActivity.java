@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.microsoft.cognitiveservices.speech.ResultReason;
 import com.microsoft.cognitiveservices.speech.SpeechConfig;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     String location = "centralus";
     ActivityMainBinding binding;
     SpeechTranslationConfig speechConfig = SpeechTranslationConfig.fromSubscription(key, location);
+    SpeechHistoryViewModel viewModel;
 
 
     @Override
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         setTitle("Home");
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        viewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(SpeechHistoryViewModel.class);
         speechConfig.setSpeechRecognitionLanguage("en-US");
         speechConfig.addTargetLanguage("ko");
 
@@ -83,10 +86,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 binding.save.setEnabled(false);
                 Toast.makeText(getApplicationContext(),"Sentence saved." ,Toast.LENGTH_SHORT).show();
-
-
-
-
+                viewModel.insert(new SpeechHistory(binding.corykim.getText().toString(), binding.translate.getText().toString(), "21"));
             }
         });
     }

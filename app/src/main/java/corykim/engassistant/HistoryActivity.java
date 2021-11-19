@@ -1,6 +1,7 @@
 package corykim.engassistant;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +16,7 @@ import corykim.engassistant.databinding.ActivityMainBinding;
 public class HistoryActivity extends AppCompatActivity {
 
     ActivityHistoryBinding binding;
+    SpeechHistoryViewModel viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,14 +28,19 @@ public class HistoryActivity extends AppCompatActivity {
         binding.recyclerview.setAdapter(adapter);
         binding.recyclerview.setLayoutManager(new LinearLayoutManager(this));
 
+        viewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(SpeechHistoryViewModel.class);
+        viewModel.speechHistoryLiveData.observe(this, speechHistories -> {
+            adapter.update(speechHistories);
+        });
+
         List<SpeechHistory> temporaryData = new ArrayList<>();
-        temporaryData.add(new SpeechHistory("Hi, my name is Cory", "번역 1 ", "11/11/2021", "3 days"));
-        temporaryData.add(new SpeechHistory("Hi, my name is Cory", "번역 2 ", "11/11/2021", "5 days"));
-        temporaryData.add(new SpeechHistory("Hi, my name is Cory", "번역 3 ", "11/11/2021", "5 days"));
-        temporaryData.add(new SpeechHistory("Hi, my name is Cory", "번역 4 ", "11/11/2021", "6 days"));
-        temporaryData.add(new SpeechHistory("Hi, my name is Cory", "번역 5 ", "11/11/2021", "8 days"));
-        temporaryData.add(new SpeechHistory("Hi, my name is Cory", "번역 6 ", "11/11/2021", "1 month"));
-        temporaryData.add(new SpeechHistory("Hi, my name is Cory", "번역 7 ", "11/11/2021", "2 month"));
+        temporaryData.add(new SpeechHistory("Hi, my name is Cory", "번역 1 ", "11/11/2021"));
+        temporaryData.add(new SpeechHistory("Hi, my name is Cory", "번역 2 ", "11/11/2021"));
+        temporaryData.add(new SpeechHistory("Hi, my name is Cory", "번역 3 ", "11/11/2021"));
+        temporaryData.add(new SpeechHistory("Hi, my name is Cory", "번역 4 ", "11/11/2021"));
+        temporaryData.add(new SpeechHistory("Hi, my name is Cory", "번역 5 ", "11/11/2021"));
+        temporaryData.add(new SpeechHistory("Hi, my name is Cory", "번역 6 ", "11/11/2021"));
+        temporaryData.add(new SpeechHistory("Hi, my name is Cory", "번역 7 ", "11/11/2021"));
         adapter.update(temporaryData);
     }
 }
