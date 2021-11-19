@@ -58,4 +58,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:text="History"/>
 
+    <Button
+        android:id="@+id/save"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toTopOf="@id/button1"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:enabled="false"
+        android:text="Save"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

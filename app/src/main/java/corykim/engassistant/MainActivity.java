@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(),"Speak now" ,Toast.LENGTH_SHORT).show();
+                binding.save.setEnabled(true);
                 try {
                     fromMic(speechConfig);
                 } catch (Exception e) {
@@ -76,8 +77,19 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-    }
 
+        binding.save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.save.setEnabled(false);
+                Toast.makeText(getApplicationContext(),"Sentence saved." ,Toast.LENGTH_SHORT).show();
+
+
+
+
+            }
+        });
+    }
 
 
 
