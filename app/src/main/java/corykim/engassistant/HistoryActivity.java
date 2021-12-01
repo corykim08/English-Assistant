@@ -2,6 +2,7 @@ package corykim.engassistant;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,6 +28,8 @@ public class HistoryActivity extends AppCompatActivity {
         HistoryAdapter adapter = new HistoryAdapter();
         binding.recyclerview.setAdapter(adapter);
         binding.recyclerview.setLayoutManager(new LinearLayoutManager(this));
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.recyclerview.getContext(), DividerItemDecoration.VERTICAL);
+        binding.recyclerview.addItemDecoration(dividerItemDecoration);
 
         viewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(SpeechHistoryViewModel.class);
         viewModel.speechHistoryLiveData.observe(this, speechHistories -> {

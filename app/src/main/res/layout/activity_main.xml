@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/corykim"
+        android:id="@+id/english_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Press the button to translate."
