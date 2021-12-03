@@ -6,6 +6,8 @@ import static android.Manifest.permission.RECORD_AUDIO;
 
 import static java.time.MonthDay.now;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,8 +15,10 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.microsoft.cognitiveservices.speech.ResultReason;
@@ -45,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(SpeechHistoryViewModel.class);
         speechConfig.setSpeechRecognitionLanguage("en-US");
         speechConfig.addTargetLanguage("ko");
+        speechConfig.addTargetLanguage("zh-Hans");
+        speechConfig.addTargetLanguage("ja");
+        speechConfig.addTargetLanguage("es");
 
         // Initialize SpeechSDK and request required permissions.
         try {
@@ -93,7 +100,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        binding.language.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                String[] languageChoices = new String[] {"Korean", "Chinese", "Japanese", "Spanish"};
+                builder.setTitle("Translate to:")
+                    .setItems(languageChoices, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            binding.language.setText(languageChoices[which]);
 
+                        }
+                    });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
     }
 
 
@@ -104,7 +126,18 @@ public class MainActivity extends AppCompatActivity {
             if (result.getReason() == ResultReason.TranslatedSpeech) {
                 binding.englishText.setText(result.getText());
                 for (Map.Entry<String, String> pair : result.getTranslations().entrySet()) {
-                    binding.translate.setText(pair.getValue());
+                    String targetLanguage = pair.getKey();
+                    String translatedLanguage = pair.getValue();
+                    if (binding.language.getText().toString().equals("Korean")) {
+                        if (targetLanguage.equals("ko")) {
+                            binding.translate.setText(translatedLanguage);
+                        }
+                    }
+                    if (binding.language.getText().toString().equals("Spanish")){
+                        if (targetLanguage.equals("es")) {
+                            binding.translate.setText(translatedLanguage);
+                        }
+                    }
                 }
             }
         }
