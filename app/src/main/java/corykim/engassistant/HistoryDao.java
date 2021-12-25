@@ -20,6 +20,6 @@ public interface HistoryDao {
     @Delete()
     void deleteItem(SpeechHistory speechHistory);
 
-    @Query("SELECT * FROM history_table order by time desc")
+    @Query("SELECT * FROM history_table order by time desc limit 20")
     LiveData<List<SpeechHistory>> getNote();
 }

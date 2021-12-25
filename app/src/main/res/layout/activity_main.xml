@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="#3B3B37">
 
     <TextView
         android:id="@+id/english_text"
@@ -13,8 +14,8 @@
         android:layout_height="wrap_content"
         android:text="Press the button to translate."
         android:textSize="25sp"
-        android:textColor="#0000FF"
-        android:background="@color/white"
+        android:textColor="#D7DD0D"
+        android:background="#3B3B37"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginVertical="150dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,8 +30,8 @@
         android:layout_height="wrap_content"
         android:text="(Translation appears here.)"
         android:textSize="25sp"
-        android:textColor="#0000FF"
-        android:background="@color/white"
+        android:textColor="#D7DD0D"
+        android:background="#3B3B37"
         android:layout_marginVertical="250dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -78,7 +79,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="#000000"
+        android:background="#D7DD0D"
         android:layout_marginLeft="0dp"
         app:layout_constraintTop_toBottomOf="@id/english_text"
         app:layout_constraintBottom_toTopOf="@id/translate"

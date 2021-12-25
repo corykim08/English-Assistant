@@ -43,14 +43,12 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         TextView time;
         TextView englishText;
         TextView koreanText;
-        TextView elapsed;
 
         public HistoryViewHolder(@NonNull View itemView) {
             super(itemView);
             time = itemView.findViewById(R.id.time);
             englishText = itemView.findViewById(R.id.englishText);
-            koreanText = itemView.findViewById(R.id.koreanText);
-            elapsed = itemView.findViewById(R.id.elapsed);
+            koreanText = itemView.findViewById(R.id.translatedText);
         }
     }
 }

@@ -138,6 +138,16 @@ public class MainActivity extends AppCompatActivity {
                             binding.translate.setText(translatedLanguage);
                         }
                     }
+                    if (binding.language.getText().toString().equals("Chinese")){
+                        if (targetLanguage.equals("zh-Hans")) {
+                            binding.translate.setText(translatedLanguage);
+                        }
+                    }
+                    if (binding.language.getText().toString().equals("Japanese")){
+                        if (targetLanguage.equals("ja")) {
+                            binding.translate.setText(translatedLanguage);
+                        }
+                    }
                 }
             }
         }
